@@ -22,9 +22,9 @@ IMPLEMENT_APP(LotteryCrusherApp);
 
 bool LotteryCrusherApp::OnInit()
 {
-    LotteryCrusherFrame* frame = new LotteryCrusherFrame(0L, _("wxWidgets Application Template"));
-    
+    LotteryCrusherFrame* frame = new LotteryCrusherFrame(0L, _("Lottery Crusher"));
+
     frame->Show();
-    
+
     return true;
 }
