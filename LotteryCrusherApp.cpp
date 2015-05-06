@@ -9,6 +9,8 @@
 
 #ifdef WX_PRECOMP
 #include "wx_pch.h"
+#include "wx/sizer.h"
+#include <stdio.h>
 #endif
 
 #ifdef __BORLANDC__
@@ -23,8 +25,7 @@ IMPLEMENT_APP(LotteryCrusherApp);
 bool LotteryCrusherApp::OnInit()
 {
     LotteryCrusherFrame* frame = new LotteryCrusherFrame(0L, _("Lottery Crusher"));
-
+    //frame->SetBackgroundColour( wxColour( 220, 230, 250 ) );
     frame->Show();
-
     return true;
 }

@@ -15,11 +15,12 @@
 #endif
 
 #include "LotteryCrusherApp.h"
-
+#include <wx/dcbuffer.h>
 class LotteryCrusherFrame: public wxFrame
 {
     public:
         LotteryCrusherFrame(wxFrame *frame, const wxString& title);
+        void showTextinFrame();
         ~LotteryCrusherFrame();
     private:
         enum
@@ -66,6 +67,8 @@ class LotteryCrusherFrame: public wxFrame
         void OnWinCorr(wxCommandEvent& event);
         void On2DPlot(wxCommandEvent& event);
         void On3DPlot(wxCommandEvent& event);
+        void OnPaint(wxPaintEvent & evt);
+        void draw(wxDC& dc);
         DECLARE_EVENT_TABLE()
 };
 

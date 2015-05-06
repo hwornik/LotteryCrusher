@@ -15,6 +15,7 @@
 #pragma hdrstop
 #endif //__BORLANDC__
 
+#include <wx/sizer.h>
 #include "LotteryCrusherMain.h"
 
 //helper functions
@@ -65,6 +66,7 @@ BEGIN_EVENT_TABLE(LotteryCrusherFrame, wxFrame)
     EVT_MENU(idMenuWinCorr, LotteryCrusherFrame::OnWinCorr)
     EVT_MENU(idMenu2DPlot, LotteryCrusherFrame::On2DPlot)
     EVT_MENU(idMenu3DPlot, LotteryCrusherFrame::On3DPlot)
+    EVT_PAINT(LotteryCrusherFrame::OnPaint)
 END_EVENT_TABLE()
 
 LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
@@ -78,6 +80,7 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     fileMenu->AppendSubMenu(lottoMenu, _("&Lottery"));
     // Lotterien anfang
     lottoMenu->Append(idMenuEuro, _("&Euromillions\tAlt-e"), _("Play Euromillions"));
+    lottoMenu->Append(idMenuAustria, _("&Austria\tAlt-a"), _("6 of 45"));
     lottoMenu->Append(idMenuFrance, _("&France\tAlt-f"), _("6 of 49"));
     lottoMenu->Append(idMenuGermany, _("&Germany\tAlt-g"), _("6 of 49"));
     lottoMenu->Append(idMenuHungary, _("&Hungary\tAlt-h"), _("6 of 45"));
@@ -85,8 +88,8 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     lottoMenu->Append(idMenuSpainI, _("&SpainI\tAlt-s"), _("6 of 49"));
     lottoMenu->Append(idMenuSpainB, _("&SpainB\tAlt-b"), _("6 of 49"));
     //Lotterien ende
-    fileMenu->Append(idMenuAktivate, _("&Activation\tAlt-a"), _("Aktivate the program"));
-    fileMenu->Append(idMenuSettings, _("&Settings\tAlt-s"), _("Modify Settings"));
+    fileMenu->Append(idMenuAktivate, _("Activation"), _("Aktivate the program"));
+    fileMenu->Append(idMenuSettings, _("Settings"), _("Modify Settings"));
     fileMenu->Append(idMenuQuit, _("&Quit\tAlt-F4"), _("Quit the application"));
     mbar->Append(fileMenu, _("&File"));
 
@@ -117,8 +120,8 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     CreateStatusBar(2);
     SetStatusText(_("Program not activated"),0);
     SetStatusText(wxbuildinfo(short_f), 1);
-#endif // wxUSE_STATUSBAR
 
+#endif // wxUSE_STATUSBAR
 }
 
 
@@ -208,3 +211,59 @@ void LotteryCrusherFrame::On2DPlot(wxCommandEvent& event)
 void LotteryCrusherFrame::On3DPlot(wxCommandEvent& event)
 {
 }
+
+void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
+{
+
+    wxPaintDC dc(this);
+    this->draw(dc);
+}
+
+void LotteryCrusherFrame::draw(wxDC& dc)
+{
+    int x,y;
+    this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
+
+    //dc.SetBrush(*wxGREEN_BRUSH);
+    wxFont font(20,wxFONTFAMILY_SWISS,wxNORMAL,wxNORMAL);
+    dc.SetFont(font);
+    dc.SetBackgroundMode(wxTRANSPARENT);
+    dc.SetTextForeground(*wxBLUE);
+
+    wxSize sz= this->GetSize();
+
+    wxString str="Welcome";
+    wxCoord w,h;
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    dc.DrawText(str,x,y-180);
+    str="to";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    dc.DrawText(str,x,y-130);
+    str="Lottery Crusher";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    dc.DrawText(str,x,y-80);
+    str="for Euromillions, Austria,";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    dc.DrawText(str,x,y-30);
+    str="Germany, France, Hungary,";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    dc.DrawText(str,x,y+20);
+    str="and the Spain Lottery";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    dc.DrawText(str,x,y+70);
+
+
+}
+
