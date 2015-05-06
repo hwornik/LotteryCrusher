@@ -215,14 +215,26 @@ void LotteryCrusherFrame::On3DPlot(wxCommandEvent& event)
 void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 {
 
-    wxPaintDC dc(this);
+    wxClientDC dc(this);
+    this->drawBack(dc);
     this->draw(dc);
+
+}
+
+void LotteryCrusherFrame::drawBack(wxDC& dc)
+{
+    //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
+    wxSize sz= GetSize();
+    dc.SetBrush(*wxLIGHT_GREY);
+    dc.SetPen(*wxLIGHT_GREY);
+    dc.DrawRectangle(0,0,sz.x,sz.y);
 }
 
 void LotteryCrusherFrame::draw(wxDC& dc)
 {
+
     int x,y;
-    this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
+    //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
 
     //dc.SetBrush(*wxGREEN_BRUSH);
     wxFont font(20,wxFONTFAMILY_SWISS,wxNORMAL,wxNORMAL);
@@ -230,40 +242,45 @@ void LotteryCrusherFrame::draw(wxDC& dc)
     dc.SetBackgroundMode(wxTRANSPARENT);
     dc.SetTextForeground(*wxBLUE);
 
-    wxSize sz= this->GetSize();
+    wxSize sz= GetSize();
 
     wxString str="Welcome";
     wxCoord w,h;
     dc.GetTextExtent(str, &w, &h);
     x = wxMax(0,(sz.x-w)/2);
     y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-190>0 && y-170<sz.y)
     dc.DrawText(str,x,y-180);
     str="to";
     dc.GetTextExtent(str, &w, &h);
     x = wxMax(0,(sz.x-w)/2);
     y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-140>0 && y-120<sz.y)
     dc.DrawText(str,x,y-130);
     str="Lottery Crusher";
     dc.GetTextExtent(str, &w, &h);
     x = wxMax(0,(sz.x-w)/2);
     y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-90>0 && y-70<sz.y)
     dc.DrawText(str,x,y-80);
     str="for Euromillions, Austria,";
     dc.GetTextExtent(str, &w, &h);
     x = wxMax(0,(sz.x-w)/2);
     y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-40>0 && y-20<sz.y)
     dc.DrawText(str,x,y-30);
     str="Germany, France, Hungary,";
     dc.GetTextExtent(str, &w, &h);
     x = wxMax(0,(sz.x-w)/2);
     y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y+10>0 && y+30<sz.y)
     dc.DrawText(str,x,y+20);
     str="and the Spain Lottery";
     dc.GetTextExtent(str, &w, &h);
     x = wxMax(0,(sz.x-w)/2);
     y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y+60>0 && y+80<sz.y)
     dc.DrawText(str,x,y+70);
-
 
 }
 

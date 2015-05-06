@@ -21,6 +21,7 @@ class LotteryCrusherFrame: public wxFrame
     public:
         LotteryCrusherFrame(wxFrame *frame, const wxString& title);
         void showTextinFrame();
+
         ~LotteryCrusherFrame();
     private:
         enum
@@ -69,6 +70,7 @@ class LotteryCrusherFrame: public wxFrame
         void On3DPlot(wxCommandEvent& event);
         void OnPaint(wxPaintEvent & evt);
         void draw(wxDC& dc);
+        void drawBack(wxDC& dc);
         DECLARE_EVENT_TABLE()
 };
 
