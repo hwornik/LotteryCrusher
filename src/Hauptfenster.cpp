@@ -1,4 +1,4 @@
-#include "Hauptfenster.h"
+#include "../include/Hauptfenster.h"
 
 Hauptfenster::Hauptfenster()
 {

@@ -1,4 +1,4 @@
-#include "Lotto.h"
+#include "../include/Lotto.h"
 
 Lotto::Lotto()
 {

@@ -1,4 +1,4 @@
-#include "Winningnumbers.h"
+#include "../include/Winningnumbers.h"
 
 Winningnumbers::Winningnumbers()
 {

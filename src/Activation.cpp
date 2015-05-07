@@ -1,4 +1,4 @@
-#include "Activation.h"
+#include "../include/Activation.h"
 
 Activation::Activation()
 {

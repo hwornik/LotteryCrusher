@@ -123,6 +123,7 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
 
 #endif // wxUSE_STATUSBAR
     aktion=0;
+    this->fenster= new Welcome(this->lotto,this);
 }
 
 
@@ -244,19 +245,13 @@ void LotteryCrusherFrame::On3DPlot(wxCommandEvent& event)
 void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 {
     wxClientDC dc(this);
-    switch(aktion)
-    {
-
-    default:
-        this->fenster= new Welcome(this->lotto,this);
-        this->fenster->drawBack(dc);
-        this->fenster->draw(dc);
-        break;
-    }
+    this->fenster->drawBack(dc);
+    this->fenster->draw(dc);
 
 }
 
+void LotteryCrusherFrame::DrawPaint()
+{
 
-
-
+}
 

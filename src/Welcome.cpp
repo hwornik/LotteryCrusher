@@ -1,4 +1,4 @@
-#include "Welcome.h"
+#include "../include/Welcome.h"
 
 Welcome::Welcome(Lotto *lotto, wxFrame *those) : Hauptfenster()
 {

@@ -6,7 +6,7 @@ class Activation
 {
     public:
         Activation();
-        virtual ~Activation();
+        ~Activation();
     protected:
     private:
 };

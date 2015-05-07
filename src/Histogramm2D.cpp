@@ -1,4 +1,4 @@
-#include "Histogramm2D.h"
+#include "../include/Histogramm2D.h"
 
 Histogramm2D::Histogramm2D()
 {

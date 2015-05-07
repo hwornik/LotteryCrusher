@@ -15,9 +15,9 @@
 #endif
 
 #include "LotteryCrusherApp.h"
-#include "Lotto.h"
-#include "Hauptfenster.h"
-#include "Welcome.h"
+#include "include/Lotto.h"
+#include "include/Hauptfenster.h"
+#include "include/Welcome.h"
 
 #include <wx/dcbuffer.h>
 
@@ -30,6 +30,7 @@ class LotteryCrusherFrame: public wxFrame
         Hauptfenster* fenster;
         Lotto* lotto;
         int aktion;
+        void DrawPaint();
         enum
         {
             idMenuQuit = 1000,

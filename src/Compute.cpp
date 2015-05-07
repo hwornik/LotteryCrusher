@@ -1,4 +1,4 @@
-#include "Compute.h"
+#include "../include/Compute.h"
 
 Compute::Compute()
 {
