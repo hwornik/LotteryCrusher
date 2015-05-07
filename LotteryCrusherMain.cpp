@@ -114,14 +114,15 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
 
     SetMenuBar(mbar);
 #endif // wxUSE_MENUS
-
+    lotto = new Lotto();
 #if wxUSE_STATUSBAR
     // create a status bar with some information about the used wxWidgets version
     CreateStatusBar(2);
     SetStatusText(_("Program not activated"),0);
-    SetStatusText(wxbuildinfo(short_f), 1);
+    SetStatusText(lotto->askName(), 1);
 
 #endif // wxUSE_STATUSBAR
+    aktion=0;
 }
 
 
@@ -157,130 +158,105 @@ void LotteryCrusherFrame::OnSettings(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnEuromillionen(wxCommandEvent& event)
 {
-
+    lotto->setLotto(1);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnAustria(wxCommandEvent& event)
 {
+    lotto->setLotto(2);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnFrance(wxCommandEvent& event)
 {
+    lotto->setLotto(3);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnGermany(wxCommandEvent& event)
 {
+    lotto->setLotto(4);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnHungary(wxCommandEvent& event)
 {
+    lotto->setLotto(5);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
-
 void LotteryCrusherFrame::OnItaly(wxCommandEvent& event)
 {
+    lotto->setLotto(6);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnSpainB(wxCommandEvent& event)
 {
+    lotto->setLotto(7);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnSpainI(wxCommandEvent& event)
 {
+    lotto->setLotto(8);
+    SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnCompute(wxCommandEvent& event)
 {
+    aktion=201;
 }
 
 void LotteryCrusherFrame::OnComputeWithN(wxCommandEvent& event)
 {
+    aktion=202;
 }
 
 void LotteryCrusherFrame::OnWinNew(wxCommandEvent& event)
 {
+    aktion=301;
 }
 
 void LotteryCrusherFrame::OnWinCorr(wxCommandEvent& event)
 {
+    aktion=302;
 }
 
 void LotteryCrusherFrame::On2DPlot(wxCommandEvent& event)
 {
+    aktion=401;
 }
 
 void LotteryCrusherFrame::On3DPlot(wxCommandEvent& event)
 {
+    aktion=402;
 }
 
 void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 {
-
     wxClientDC dc(this);
-    this->drawBack(dc);
-    this->draw(dc);
+    switch(aktion)
+    {
+
+    default:
+        this->fenster= new Welcome(this->lotto,this);
+        this->fenster->drawBack(dc);
+        this->fenster->draw(dc);
+        break;
+    }
 
 }
 
-void LotteryCrusherFrame::drawBack(wxDC& dc)
-{
-    //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
-    wxSize sz= GetSize();
-    dc.SetBrush(*wxLIGHT_GREY);
-    dc.SetPen(*wxLIGHT_GREY);
-    dc.DrawRectangle(0,0,sz.x,sz.y);
-}
 
-void LotteryCrusherFrame::draw(wxDC& dc)
-{
 
-    int x,y;
-    //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
 
-    //dc.SetBrush(*wxGREEN_BRUSH);
-    wxFont font(20,wxFONTFAMILY_SWISS,wxNORMAL,wxNORMAL);
-    dc.SetFont(font);
-    dc.SetBackgroundMode(wxTRANSPARENT);
-    dc.SetTextForeground(*wxBLUE);
-
-    wxSize sz= GetSize();
-
-    wxString str="Welcome";
-    wxCoord w,h;
-    dc.GetTextExtent(str, &w, &h);
-    x = wxMax(0,(sz.x-w)/2);
-    y = wxMax(0, (sz.y -h)/2);
-    if(x>0 && x< sz.x && y-190>0 && y-170<sz.y)
-    dc.DrawText(str,x,y-180);
-    str="to";
-    dc.GetTextExtent(str, &w, &h);
-    x = wxMax(0,(sz.x-w)/2);
-    y = wxMax(0, (sz.y -h)/2);
-    if(x>0 && x< sz.x && y-140>0 && y-120<sz.y)
-    dc.DrawText(str,x,y-130);
-    str="Lottery Crusher";
-    dc.GetTextExtent(str, &w, &h);
-    x = wxMax(0,(sz.x-w)/2);
-    y = wxMax(0, (sz.y -h)/2);
-    if(x>0 && x< sz.x && y-90>0 && y-70<sz.y)
-    dc.DrawText(str,x,y-80);
-    str="for Euromillions, Austria,";
-    dc.GetTextExtent(str, &w, &h);
-    x = wxMax(0,(sz.x-w)/2);
-    y = wxMax(0, (sz.y -h)/2);
-    if(x>0 && x< sz.x && y-40>0 && y-20<sz.y)
-    dc.DrawText(str,x,y-30);
-    str="Germany, France, Hungary,";
-    dc.GetTextExtent(str, &w, &h);
-    x = wxMax(0,(sz.x-w)/2);
-    y = wxMax(0, (sz.y -h)/2);
-    if(x>0 && x< sz.x && y+10>0 && y+30<sz.y)
-    dc.DrawText(str,x,y+20);
-    str="and the Spain Lottery";
-    dc.GetTextExtent(str, &w, &h);
-    x = wxMax(0,(sz.x-w)/2);
-    y = wxMax(0, (sz.y -h)/2);
-    if(x>0 && x< sz.x && y+60>0 && y+80<sz.y)
-    dc.DrawText(str,x,y+70);
-
-}
 

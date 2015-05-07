@@ -15,15 +15,21 @@
 #endif
 
 #include "LotteryCrusherApp.h"
+#include "Lotto.h"
+#include "Hauptfenster.h"
+#include "Welcome.h"
+
 #include <wx/dcbuffer.h>
+
 class LotteryCrusherFrame: public wxFrame
 {
     public:
         LotteryCrusherFrame(wxFrame *frame, const wxString& title);
-        void showTextinFrame();
-
         ~LotteryCrusherFrame();
     private:
+        Hauptfenster* fenster;
+        Lotto* lotto;
+        int aktion;
         enum
         {
             idMenuQuit = 1000,
@@ -69,8 +75,6 @@ class LotteryCrusherFrame: public wxFrame
         void On2DPlot(wxCommandEvent& event);
         void On3DPlot(wxCommandEvent& event);
         void OnPaint(wxPaintEvent & evt);
-        void draw(wxDC& dc);
-        void drawBack(wxDC& dc);
         DECLARE_EVENT_TABLE()
 };
 
