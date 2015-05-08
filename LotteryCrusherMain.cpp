@@ -125,9 +125,11 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     aktion=0;
     this->fenster= new Welcome(this->lotto,this);
     wxSize fsize;
-    fsize.x=500;
+    fsize.x=400;
     fsize.y=500;
-    //this->SetMinSize(fsize);
+    this->SetMinSize(fsize);
+    this->SetSize(fsize);
+    firstpaint=false;
 }
 
 
@@ -163,28 +165,29 @@ void LotteryCrusherFrame::OnSettings(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnEuromillionen(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(1);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
     this->Refresh();
-    this->SetFocus();
-    this->Refresh();
+    //this->SetFocus();
+    //this->Refresh();
     //this->Maximize();
 }
 
 void LotteryCrusherFrame::OnAustria(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(2);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
-    this->Raise();
     this->Refresh();
 }
 
 void LotteryCrusherFrame::OnFrance(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(3);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
-    this->DrawPaint();
-    //this->Refresh();
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnGermany(wxCommandEvent& event)
@@ -196,12 +199,14 @@ void LotteryCrusherFrame::OnGermany(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnHungary(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(5);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
     this->Refresh();
 }
 void LotteryCrusherFrame::OnItaly(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(6);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
     this->Refresh();
@@ -209,6 +214,7 @@ void LotteryCrusherFrame::OnItaly(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnSpainB(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(7);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
     this->Refresh();
@@ -216,6 +222,7 @@ void LotteryCrusherFrame::OnSpainB(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnSpainI(wxCommandEvent& event)
 {
+    firstpaint=true;
     lotto->setLotto(8);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
     this->Refresh();
@@ -253,16 +260,21 @@ void LotteryCrusherFrame::On3DPlot(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 {
-    wxClientDC dc(this);
-    this->fenster->drawBack(dc);
-    this->fenster->draw(dc);
+    if(firstpaint)
+    {
+        wxPaintDC dc(this);
+        firstpaint=false;
+        this->fenster->drawBack(dc);
+        this->fenster->draw(dc);
+    }
+    else
+    {
+        wxClientDC dc(this);
+        this->fenster->drawBack(dc);
+        this->fenster->draw(dc);
+    }
+
 
 }
 
-void LotteryCrusherFrame::DrawPaint()
-{
-    wxPaintDC dc(this);
-    this->fenster->drawBack(dc);
-    this->fenster->draw(dc);
-}
 

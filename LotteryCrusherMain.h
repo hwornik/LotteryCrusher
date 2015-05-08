@@ -30,7 +30,7 @@ class LotteryCrusherFrame: public wxFrame
         Hauptfenster* fenster;
         Lotto* lotto;
         int aktion;
-        void DrawPaint();
+        bool firstpaint;
         enum
         {
             idMenuQuit = 1000,
