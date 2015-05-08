@@ -184,7 +184,7 @@ void LotteryCrusherFrame::OnFrance(wxCommandEvent& event)
     lotto->setLotto(3);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
     this->DrawPaint();
-    this->Refresh();
+    //this->Refresh();
 }
 
 void LotteryCrusherFrame::OnGermany(wxCommandEvent& event)
@@ -261,6 +261,8 @@ void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 
 void LotteryCrusherFrame::DrawPaint()
 {
-    Refresh();
+    wxPaintDC dc(this);
+    this->fenster->drawBack(dc);
+    this->fenster->draw(dc);
 }
 
