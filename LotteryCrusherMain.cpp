@@ -127,7 +127,7 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     wxSize fsize;
     fsize.x=500;
     fsize.y=500;
-    this->SetMinSize(fsize);
+    //this->SetMinSize(fsize);
 }
 
 
@@ -165,8 +165,9 @@ void LotteryCrusherFrame::OnEuromillionen(wxCommandEvent& event)
 {
     lotto->setLotto(1);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
-    //this->Refresh();
+    this->Refresh();
     this->SetFocus();
+    this->Refresh();
     //this->Maximize();
 }
 
@@ -174,17 +175,15 @@ void LotteryCrusherFrame::OnAustria(wxCommandEvent& event)
 {
     lotto->setLotto(2);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
-    //this->Refresh();
-    wxSize sz= this->GetSize();
-    sz.x-=1;
-    sz.y=400;
-    this->SetSize(sz);
+    this->Raise();
+    this->Refresh();
 }
 
 void LotteryCrusherFrame::OnFrance(wxCommandEvent& event)
 {
     lotto->setLotto(3);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
+    this->DrawPaint();
     this->Refresh();
 }
 
@@ -262,6 +261,6 @@ void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 
 void LotteryCrusherFrame::DrawPaint()
 {
-
+    Refresh();
 }
 
