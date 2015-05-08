@@ -124,6 +124,10 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
 #endif // wxUSE_STATUSBAR
     aktion=0;
     this->fenster= new Welcome(this->lotto,this);
+    wxSize fsize;
+    fsize.x=500;
+    fsize.y=500;
+    this->SetMinSize(fsize);
 }
 
 
@@ -161,14 +165,20 @@ void LotteryCrusherFrame::OnEuromillionen(wxCommandEvent& event)
 {
     lotto->setLotto(1);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
-    this->Refresh();
+    //this->Refresh();
+    this->SetFocus();
+    //this->Maximize();
 }
 
 void LotteryCrusherFrame::OnAustria(wxCommandEvent& event)
 {
     lotto->setLotto(2);
     SetStatusText(lotto->askName()+" "+lotto->askSystemof(), 1);
-    this->Refresh();
+    //this->Refresh();
+    wxSize sz= this->GetSize();
+    sz.x-=1;
+    sz.y=400;
+    this->SetSize(sz);
 }
 
 void LotteryCrusherFrame::OnFrance(wxCommandEvent& event)
