@@ -81,7 +81,7 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     // Lotterien anfang
     lottoMenu->Append(idMenuEuro, _("&Euromillions\tAlt-e"), _("Play Euromillions"));
     lottoMenu->Append(idMenuAustria, _("&Austria\tAlt-a"), _("6 of 45"));
-    lottoMenu->Append(idMenuFrance, _("&France\tAlt-f"), _("6 of 49"));
+    lottoMenu->Append(idMenuFrance, _("F&rance\tAlt-r"), _("6 of 49"));
     lottoMenu->Append(idMenuGermany, _("&Germany\tAlt-g"), _("6 of 49"));
     lottoMenu->Append(idMenuHungary, _("&Hungary\tAlt-h"), _("6 of 45"));
     lottoMenu->Append(idMenuItaly, _("&Italy\tAlt-i"), _("6 of 90"));
@@ -104,8 +104,8 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     mbar->Append(winningMenu, _("&Winning numbers"));
 
     wxMenu* graphMenu = new wxMenu(_T(""));
-    graphMenu->Append(idMenu2DPlot, _("2d Plot"), _("Show 2DPlot of the winning numbers"));
-    graphMenu->Append(idMenu3DPlot, _("23 Plot"), _("Show 3DPlot of the winning numbers"));
+    graphMenu->Append(idMenu2DPlot, _("2D Plot"), _("Show 2DPlot of the winning numbers"));
+    graphMenu->Append(idMenu3DPlot, _("3D Plot"), _("Show 3DPlot of the winning numbers"));
     mbar->Append(graphMenu, _("Plots"));
 
     wxMenu* helpMenu = new wxMenu(_T(""));
@@ -155,7 +155,8 @@ void LotteryCrusherFrame::OnAbout(wxCommandEvent &event)
 
 void LotteryCrusherFrame::OnAktivateProgram(wxCommandEvent& event)
 {
-
+    this->dialogs= new ActivationDialog(this,wxID_ANY,"Activation");
+    this->dialogs->ShowModal();
 }
 
 void LotteryCrusherFrame::OnSettings(wxCommandEvent& event)

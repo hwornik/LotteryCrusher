@@ -18,6 +18,7 @@
 #include "include/Lotto.h"
 #include "include/Hauptfenster.h"
 #include "include/Welcome.h"
+#include "include/ActivationDialog.h"
 
 #include <wx/dcbuffer.h>
 
@@ -29,6 +30,7 @@ class LotteryCrusherFrame: public wxFrame
     private:
         Hauptfenster* fenster;
         Lotto* lotto;
+        wxDialog* dialogs;
         int aktion;
         bool firstpaint;
         enum

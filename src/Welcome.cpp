@@ -8,38 +8,38 @@ Welcome::Welcome(Lotto *lotto, wxFrame *those) : Hauptfenster()
 
 void Welcome::draw(wxDC& dc)
 {
+    int x,y;
+    //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
+
+    //dc.SetBrush(*wxGREEN_BRUSH);
+    wxFont font(20,wxFONTFAMILY_SWISS,wxNORMAL,wxNORMAL);
+    dc.SetFont(font);
+    dc.SetBackgroundMode(wxTRANSPARENT);
+    dc.SetTextForeground(*wxBLUE);
+
+    wxSize sz= those->GetSize();
+
+    wxString str="Welcome";
+    wxCoord w,h;
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-190>0 && y-170<sz.y)
+    dc.DrawText(str,x,y-180);
+    str="to";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-140>0 && y-120<sz.y)
+    dc.DrawText(str,x,y-130);
+    str="Lottery Crusher";
+    dc.GetTextExtent(str, &w, &h);
+    x = wxMax(0,(sz.x-w)/2);
+    y = wxMax(0, (sz.y -h)/2);
+    if(x>0 && x< sz.x && y-90>0 && y-70<sz.y)
+    dc.DrawText(str,x,y-80);
     if(lotto->askNameint()==0)
     {
-        int x,y;
-        //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
-
-        //dc.SetBrush(*wxGREEN_BRUSH);
-        wxFont font(20,wxFONTFAMILY_SWISS,wxNORMAL,wxNORMAL);
-        dc.SetFont(font);
-        dc.SetBackgroundMode(wxTRANSPARENT);
-        dc.SetTextForeground(*wxBLUE);
-
-        wxSize sz= those->GetSize();
-
-        wxString str="Welcome";
-        wxCoord w,h;
-        dc.GetTextExtent(str, &w, &h);
-        x = wxMax(0,(sz.x-w)/2);
-        y = wxMax(0, (sz.y -h)/2);
-        if(x>0 && x< sz.x && y-190>0 && y-170<sz.y)
-        dc.DrawText(str,x,y-180);
-        str="to";
-        dc.GetTextExtent(str, &w, &h);
-        x = wxMax(0,(sz.x-w)/2);
-        y = wxMax(0, (sz.y -h)/2);
-        if(x>0 && x< sz.x && y-140>0 && y-120<sz.y)
-        dc.DrawText(str,x,y-130);
-        str="Lottery Crusher";
-        dc.GetTextExtent(str, &w, &h);
-        x = wxMax(0,(sz.x-w)/2);
-        y = wxMax(0, (sz.y -h)/2);
-        if(x>0 && x< sz.x && y-90>0 && y-70<sz.y)
-        dc.DrawText(str,x,y-80);
         str="for Euromillions, Austria,";
         dc.GetTextExtent(str, &w, &h);
         x = wxMax(0,(sz.x-w)/2);
@@ -61,36 +61,6 @@ void Welcome::draw(wxDC& dc)
     }
     else
     {
-        int x,y;
-        //this->SetBackgroundColour( wxColour( 220, 230, 250 ) );
-
-        //dc.SetBrush(*wxGREEN_BRUSH);
-        wxFont font(20,wxFONTFAMILY_SWISS,wxNORMAL,wxNORMAL);
-        dc.SetFont(font);
-        dc.SetBackgroundMode(wxTRANSPARENT);
-        dc.SetTextForeground(*wxBLUE);
-
-        wxSize sz= those->GetSize();
-
-        wxString str="Welcome";
-        wxCoord w,h;
-        dc.GetTextExtent(str, &w, &h);
-        x = wxMax(0,(sz.x-w)/2);
-        y = wxMax(0, (sz.y -h)/2);
-        if(x>0 && x< sz.x && y-190>0 && y-170<sz.y)
-        dc.DrawText(str,x,y-180);
-        str="to";
-        dc.GetTextExtent(str, &w, &h);
-        x = wxMax(0,(sz.x-w)/2);
-        y = wxMax(0, (sz.y -h)/2);
-        if(x>0 && x< sz.x && y-140>0 && y-120<sz.y)
-        dc.DrawText(str,x,y-130);
-        str="Lottery Crusher";
-        dc.GetTextExtent(str, &w, &h);
-        x = wxMax(0,(sz.x-w)/2);
-        y = wxMax(0, (sz.y -h)/2);
-        if(x>0 && x< sz.x && y-90>0 && y-70<sz.y)
-        dc.DrawText(str,x,y-80);
         str="for "+this->lotto->askName();
         dc.GetTextExtent(str, &w, &h);
         x = wxMax(0,(sz.x-w)/2);

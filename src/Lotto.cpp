@@ -12,7 +12,7 @@ void Lotto::setLotto(int lottery)
     {
         case 1:
             name="Euromillions";
-            systemof="6 of 50 and 2 of 11";
+            systemof="5 of 50 and 2 of 11";
             numbers=5;
             maxnumbers=50;
             zusatzzahlen=2;
