@@ -19,6 +19,7 @@
 #include "include/Hauptfenster.h"
 #include "include/Welcome.h"
 #include "include/ActivationDialog.h"
+#include "include/SettingsDialog.h"
 
 #include <wx/dcbuffer.h>
 
@@ -26,13 +27,16 @@ class LotteryCrusherFrame: public wxFrame
 {
     public:
         LotteryCrusherFrame(wxFrame *frame, const wxString& title);
+        bool isactiveted();
         ~LotteryCrusherFrame();
     private:
         Hauptfenster* fenster;
         Lotto* lotto;
         wxDialog* dialogs;
         int aktion;
-        bool firstpaint;
+        bool firstpaint,activated;
+        wxString *vname,*nname,*serialn,*code,*key,*mac1,*mac2,*mac3,*home;
+        bool activateStartup();
         enum
         {
             idMenuQuit = 1000,

@@ -3,6 +3,7 @@
 
 #include <wx/wx.h>
 
+#include "Activation.h"
 
 class ActivationDialog : public wxDialog
 {
@@ -14,6 +15,11 @@ class ActivationDialog : public wxDialog
         virtual ~ActivationDialog();
     protected:
     private:
+        wxPanel* panel;
+        wxTextCtrl *activationcode;
+        wxButton *cancelButton, *okButton;
+        wxGridSizer *sizer;
+        Activation *activationscontrol;
 };
 
 #endif // ACTIVATIONDIALOG_H

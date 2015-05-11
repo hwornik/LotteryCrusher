@@ -72,6 +72,7 @@ END_EVENT_TABLE()
 LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     : wxFrame(frame, -1, title)
 {
+    activated=this->activateStartup();
 #if wxUSE_MENUS
     // create a menu bar
     wxMenuBar* mbar = new wxMenuBar();
@@ -88,7 +89,8 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     lottoMenu->Append(idMenuSpainI, _("&SpainI\tAlt-s"), _("6 of 49"));
     lottoMenu->Append(idMenuSpainB, _("&SpainB\tAlt-b"), _("6 of 49"));
     //Lotterien ende
-    fileMenu->Append(idMenuAktivate, _("Activation"), _("Aktivate the program"));
+    if(!this->isactiveted())
+        fileMenu->Append(idMenuAktivate, _("Activation"), _("Aktivate the program"));
     fileMenu->Append(idMenuSettings, _("Settings"), _("Modify Settings"));
     fileMenu->Append(idMenuQuit, _("&Quit\tAlt-F4"), _("Quit the application"));
     mbar->Append(fileMenu, _("&File"));
@@ -118,7 +120,14 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
 #if wxUSE_STATUSBAR
     // create a status bar with some information about the used wxWidgets version
     CreateStatusBar(2);
-    SetStatusText(_("Program not activated"),0);
+    if(!this->isactiveted())
+    {
+        SetStatusText(_("Program not activated"),0);
+    }
+    else
+    {
+        SetStatusText(_("Program activated"),0);
+    }
     SetStatusText(lotto->askName(), 1);
 
 #endif // wxUSE_STATUSBAR
@@ -149,19 +158,29 @@ void LotteryCrusherFrame::OnQuit(wxCommandEvent &event)
 
 void LotteryCrusherFrame::OnAbout(wxCommandEvent &event)
 {
-    wxString msg = wxbuildinfo(long_f);
-    wxMessageBox(msg, _("Welcome to..."));
+#if defined(__WXMSW__)
+        wxString msg = "build on Code::Blocks 13.12\r"+wxbuildinfo(long_f )+" with\rgcc version 4.8.3 20141208 [gcc-4_8-branch revision 218481]";
+#elif defined(__WXMAC__)
+    wxString msg = "build on Code::Blocks 13.12\r"+wxbuildinfo(long_f )+" with\rgcc version 4.8.3 20141208 [gcc-4_8-branch revision 218481]";
+#elif defined(__UNIX__)
+    wxString msg = "build on Code::Blocks 13.12\r"+wxbuildinfo(long_f )+" with\rgcc version 4.8.3 20141208 [gcc-4_8-branch revision 218481]";
+#endif
+    wxMessageBox(msg, _("Welcome to Lottery Crusher"));
 }
 
 void LotteryCrusherFrame::OnAktivateProgram(wxCommandEvent& event)
 {
-    this->dialogs= new ActivationDialog(this,wxID_ANY,"Activation");
-    this->dialogs->ShowModal();
+    if(!this->isactiveted())
+    {
+        this->dialogs= new ActivationDialog(this,wxID_ANY,"Activation");
+        this->dialogs->ShowModal();
+    }
 }
 
 void LotteryCrusherFrame::OnSettings(wxCommandEvent& event)
 {
-
+    this->dialogs= new SettingsDialog(this,wxID_ANY,"Activation");
+    this->dialogs->ShowModal();
 }
 
 void LotteryCrusherFrame::OnEuromillionen(wxCommandEvent& event)
@@ -278,4 +297,13 @@ void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 
 }
 
+bool LotteryCrusherFrame::activateStartup()
+{
+    activated=false;
+    return activated;
+}
 
+bool LotteryCrusherFrame::isactiveted()
+{
+    return activated;
+}
