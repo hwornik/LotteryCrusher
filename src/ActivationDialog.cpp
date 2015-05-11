@@ -1,4 +1,4 @@
-#include "ActivationDialog.h"
+#include "../include/ActivationDialog.h"
 
 ActivationDialog::ActivationDialog(wxWindow* parent,
         wxWindowID id,

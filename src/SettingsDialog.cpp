@@ -1,4 +1,4 @@
-#include "SettingsDialog.h"
+#include "../include/SettingsDialog.h"
 
 SettingsDialog::SettingsDialog(wxWindow* parent,
         wxWindowID id,
@@ -7,9 +7,9 @@ SettingsDialog::SettingsDialog(wxWindow* parent,
             wxDefaultPosition, wxSize(400, 200))
 {
     settingscontrol = new Settings();
-    wxString dirdat= wxStandardPaths::Get().GetDocumentsDir();
+    wxString dirdat= wxStandardPaths::Get().GetUserConfigDir();
     wxString dirdat2= wxStandardPaths::Get().GetUserDataDir();
-    wxString dirdat3= wxStandardPaths::Get().GetExecutablePath();
+    wxString dirdat3= wxStandardPaths::Get().GetUserLocalDataDir();
     panel = new wxPanel(this, wxID_ANY);
     vorname = new wxTextCtrl(panel,wxID_ANY,dirdat,wxDefaultPosition, wxSize(150,20));
     nachname = new wxTextCtrl(panel,wxID_ANY,dirdat2,wxDefaultPosition, wxSize(150,20));

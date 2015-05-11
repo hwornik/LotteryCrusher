@@ -3,9 +3,9 @@
 DataIO::DataIO()
 {
     //ctor
-    datadir= wxStandardPaths::Get().GetUserDataDir();
+    datadir= wxStandardPaths::Get().GetUserLocalDataDir();
     #if defined(__WXMSW__)
-        seperator="\";
+        seperator="\\";
     #else
         seperator="/";
     #endif
