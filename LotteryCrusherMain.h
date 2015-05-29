@@ -23,6 +23,7 @@
 
 #include <wx/dcbuffer.h>
 
+
 class LotteryCrusherFrame: public wxFrame
 {
     public:
