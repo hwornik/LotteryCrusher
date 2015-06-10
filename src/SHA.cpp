@@ -1,4 +1,4 @@
-#include "SHA.h"
+#include "../include/SHA.h"
 
 SHA::SHA()
 {
