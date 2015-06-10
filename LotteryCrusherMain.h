@@ -20,9 +20,10 @@
 #include "include/Welcome.h"
 #include "include/ActivationDialog.h"
 #include "include/SettingsDialog.h"
+#include "include/DataIO.h"
+#include "include/SHA.h"
 
 #include <wx/dcbuffer.h>
-
 
 class LotteryCrusherFrame: public wxFrame
 {
@@ -37,7 +38,7 @@ class LotteryCrusherFrame: public wxFrame
         int aktion;
         bool firstpaint,activated;
         wxString *vname,*nname,*serialn,*code,*key,*mac1,*mac2,*mac3,*home;
-        bool activateStartup();
+        void activateStartup();
         enum
         {
             idMenuQuit = 1000,

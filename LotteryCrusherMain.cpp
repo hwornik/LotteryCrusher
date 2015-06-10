@@ -16,6 +16,7 @@
 #endif //__BORLANDC__
 
 #include <wx/sizer.h>
+
 #include "LotteryCrusherMain.h"
 
 //helper functions
@@ -72,7 +73,7 @@ END_EVENT_TABLE()
 LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     : wxFrame(frame, -1, title)
 {
-    activated=this->activateStartup();
+    this->activateStartup();
 #if wxUSE_MENUS
     // create a menu bar
     wxMenuBar* mbar = new wxMenuBar();
@@ -179,6 +180,7 @@ void LotteryCrusherFrame::OnAktivateProgram(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnSettings(wxCommandEvent& event)
 {
+    DataIO *readstore= new DataIO();
     this->dialogs= new SettingsDialog(this,wxID_ANY,"Activation");
     this->dialogs->ShowModal();
 }
@@ -297,10 +299,25 @@ void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 
 }
 
-bool LotteryCrusherFrame::activateStartup()
+void LotteryCrusherFrame::activateStartup()
 {
-    activated=false;
-    return activated;
+    DataIO *io= new DataIO();
+    unsigned char *zeigerchar,*no;
+    wxString program;
+    zeigerchar=io->readLicense();
+    SHA *decode= new SHA();
+    no = decode->get512Hash(program);
+    activated=true;
+    for(int i=0;i<255;i++)
+    {
+        if(*zeigerchar!=*no)
+        {
+            activated=false;
+            break;
+        }
+        zeigerchar++;
+        no++;
+    }
 }
 
 bool LotteryCrusherFrame::isactiveted()
