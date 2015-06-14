@@ -7,9 +7,9 @@ SettingsDialog::SettingsDialog(wxWindow* parent,
             wxDefaultPosition, wxSize(400, 200))
 {
     settingscontrol = new Settings();
-    wxString dirdat= wxStandardPaths::Get().GetUserConfigDir();
-    wxString dirdat2= wxStandardPaths::Get().GetUserDataDir();
-    wxString dirdat3= wxStandardPaths::Get().GetUserLocalDataDir();
+    wxString dirdat= settingscontrol->getVName();
+    wxString dirdat2= settingscontrol->getNName();
+    wxString dirdat3= settingscontrol->getOrderNr();
     panel = new wxPanel(this, wxID_ANY);
     vorname = new wxTextCtrl(panel,wxID_ANY,dirdat,wxDefaultPosition, wxSize(150,20));
     nachname = new wxTextCtrl(panel,wxID_ANY,dirdat2,wxDefaultPosition, wxSize(150,20));
@@ -52,6 +52,11 @@ void SettingsDialog::onCancel(wxCommandEvent& pEvent)
 
 void SettingsDialog::onOk(wxCommandEvent& pEvent)
 {
+    settingscontrol->setVName(vorname->GetLineText(0));
+    settingscontrol->setNName(nachname->GetLineText(0));
+    settingscontrol->setOrderNr(serialnumber->GetLineText(0));
+    settingscontrol->writeSettings();
+    this->Destroy();
 }
 
 SettingsDialog::~SettingsDialog()

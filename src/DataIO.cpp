@@ -18,14 +18,47 @@ DataIO::DataIO()
         wxFileName::Mkdir(datadir);
 }
 
-bool DataIO::readSettingsData(wxString *vorname, wxString *nachname, wxString serialnumber)
+ wxArrayString DataIO::readSettingsData()
 {
+    wxArrayString ergebnis;
     if(wxFileName::FileExists(datadir+seperator+filesettings))
     {
-        return true;
+        wxTextFile txtfile(datadir+seperator+filesettings);
+        txtfile.Open();
+        if(!txtfile.Eof())
+        ergebnis.Add(txtfile.GetFirstLine());
+        if(!txtfile.Eof())
+        ergebnis.Add(txtfile.GetNextLine());
+        if(!txtfile.Eof())
+        ergebnis.Add(txtfile.GetNextLine());
+        txtfile.Close();
+        return ergebnis;
     }
     else
-        return false;
+    {
+        return ergebnis;
+    }
+}
+
+bool DataIO::writeSettingsData(wxString vname, wxString nname,wxString ordernr)
+{
+
+    wxTextFile txtfile(datadir+seperator+filesettings);
+    if(!wxFileName::FileExists(datadir+seperator+filesettings))
+    {
+        txtfile.Create();
+    }
+    else
+    {
+        txtfile.Open();
+        txtfile.Clear();
+    }
+    txtfile.AddLine(vname);
+    txtfile.AddLine(nname);
+    txtfile.AddLine(ordernr);
+    bool written=txtfile.Write();
+    txtfile.Close();
+    return written;
 }
 
 unsigned char *DataIO::readLicense()
@@ -39,12 +72,32 @@ unsigned char *DataIO::readLicense()
             code[i+1]='f';
     }
     zeigerchar= code;
-    if(wxFileName::FileExists(datadir+filelicence))
+    if(wxFileName::FileExists(datadir+seperator+filelicence))
     {
+        wxFile binfile(datadir+seperator+filelicence);
+        if(binfile.IsOpened())
+        {
+            binfile.Read(zeigerchar,256);
+            binfile.Close();
+        }
         return zeigerchar;
     }
     else
         return zeigerchar;
+}
+
+bool DataIO::writeLicense(unsigned char *code)
+{
+    bool written=false;
+    wxFile binfile(datadir+seperator+filelicence, wxFile::write);
+    binfile.Create(datadir+seperator+filelicence,true);
+    if(binfile.IsOpened())
+    {
+        binfile.Write(code,256);
+        written=true;
+    }
+    binfile.Close();
+    return written;
 }
 
 DataIO::~DataIO()

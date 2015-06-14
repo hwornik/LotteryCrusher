@@ -180,7 +180,6 @@ void LotteryCrusherFrame::OnAktivateProgram(wxCommandEvent& event)
 
 void LotteryCrusherFrame::OnSettings(wxCommandEvent& event)
 {
-    DataIO *readstore= new DataIO();
     this->dialogs= new SettingsDialog(this,wxID_ANY,"Activation");
     this->dialogs->ShowModal();
 }
@@ -302,6 +301,8 @@ void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 void LotteryCrusherFrame::activateStartup()
 {
     DataIO *io= new DataIO();
+    Person *user=new Person();
+    user->loadUser();
     unsigned char *zeigerchar,*no;
     wxString program;
     zeigerchar=io->readLicense();
