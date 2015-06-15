@@ -8,7 +8,7 @@ ActivationDialog::ActivationDialog(wxWindow* parent,
 {
     activationscontrol= new Activation();
     panel = new wxPanel(this, wxID_ANY);
-    activationcode = new wxTextCtrl(panel, wxID_ANY ,"",wxDefaultPosition, wxSize(200,20));
+    activationcode = new wxTextCtrl(panel, wxID_ANY ,activationscontrol->gethwinfo(),wxDefaultPosition, wxSize(200,20));
     cancelButton = new wxButton(panel, wxID_ANY, "Cancel");
     okButton = new wxButton(panel, wxID_ANY, "Ok");
     sizer = new wxGridSizer(2,3, 5, 5);
@@ -31,6 +31,7 @@ ActivationDialog::ActivationDialog(wxWindow* parent,
             this, cancelButton->GetId());
     Bind(wxEVT_COMMAND_BUTTON_CLICKED, &ActivationDialog::onOk,
             this, okButton->GetId());
+
 }
 
 void ActivationDialog::onCancel(wxCommandEvent& pEvent)
