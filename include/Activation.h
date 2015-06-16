@@ -9,7 +9,9 @@
 #elif defined(__WXMAC__)
 
 #elif defined(__UNIX__)
-    #include <cpuid.h>
+    #include "DataIO.h"
+    #include <wx/arrstr.h>
+    #include <wx/tokenzr.h>
 #endif
 
 
@@ -23,8 +25,6 @@ class Activation
         ~Activation();
     protected:
     private:
-    inline void native_cpuid(unsigned int *eax, unsigned int *ebx,
-                                unsigned int *ecx, unsigned int *edx);
         void ComputeHardewareInfos();
         wxString hwinfoOEM;
         wxString hwinfoType;

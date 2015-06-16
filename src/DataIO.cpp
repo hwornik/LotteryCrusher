@@ -100,6 +100,41 @@ bool DataIO::writeLicense(unsigned char *code)
     return written;
 }
 
+wxArrayString DataIO::readHWInfo()
+{
+    wxArrayString ergebnis;
+    wxString fileread="/proc/cpuinfo";
+    wxString line;
+
+    int found=0;
+    if(wxFileName::FileExists(fileread))
+    {
+        wxTextFile txtfile(fileread);
+        txtfile.Open();
+        wxString matching="*cpu family*";
+        while(!txtfile.Eof())
+        {
+            line=txtfile.GetNextLine();
+            if(found==2)
+            {
+                matching="*siblings*";
+            }
+            else if(found==1)
+            {
+                matching="*stepping*";
+            }
+            if(line.Matches(matching))
+            {
+                ergebnis.Add(line);
+                found++;
+            }
+            if(found==3)
+                return ergebnis;
+        }
+    }
+    return ergebnis;
+}
+
 DataIO::~DataIO()
 {
     //dtor

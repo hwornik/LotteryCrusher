@@ -8,6 +8,7 @@
 #include <wx/string.h>
 #include <wx/arrstr.h>
 
+
 static const wxString programname="LotteryCrusher";
 
 class DataIO
@@ -18,6 +19,7 @@ class DataIO
         bool writeSettingsData(wxString vname, wxString nname,wxString ordernr);
         unsigned char *readLicense();
         bool writeLicense(unsigned char *code);
+        wxArrayString readHWInfo();
         virtual ~DataIO();
     protected:
     private:
