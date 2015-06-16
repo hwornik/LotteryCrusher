@@ -18,8 +18,8 @@ SYSTEM_INFO siSysInfo;
    // Display the contents of the SYSTEM_INFO structure.
 
    hwinfoOEM=wxString::Format(wxT("%u"),siSysInfo.wProcessorLevel);
-   hwinfoCores=wxString::Format(wxT("%u"),siSysInfo.wProcessorRevision);
-   hwinfoType=wxString::Format(wxT("%u"),siSysInfo.dwProcessorType);
+   hwinfoCores=wxString::Format(wxT("%u"),siSysInfo.dwNumberOfProcessors);
+   hwinfoType=wxString::Format(wxT("%1x"),siSysInfo.wProcessorRevision);
    #elif defined(__WXMAC__)
 
 #elif defined(__UNIX__)
@@ -50,7 +50,7 @@ inline void Activation::native_cpuid(unsigned int *eax, unsigned int *ebx,
 
 wxString Activation::gethwinfo()
 {
-    return hwinfoOEM+"-"+hwinfoCores+"-"+hwinfoType;
+    return hwinfoOEM+"-"+hwinfoCores+"-"+hwinfoType[3];
 }
 Activation::~Activation()
 {
