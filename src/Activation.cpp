@@ -16,16 +16,18 @@ SYSTEM_INFO siSysInfo;
    ::GetSystemInfo(&siSysInfo);
 
    // Display the contents of the SYSTEM_INFO structure.
-
+   wxString puffer;
    hwinfoOEM=wxString::Format(wxT("%u"),siSysInfo.wProcessorLevel);
    hwinfoCores=wxString::Format(wxT("%u"),siSysInfo.dwNumberOfProcessors);
-   hwinfoType=wxString::Format(wxT("%1x"),siSysInfo.wProcessorRevision);
+   puffer=wxString::Format(wxT("%1x"),siSysInfo.wProcessorRevision);
+   hwinfoType=puffer[3];
    #elif defined(__WXMAC__)
 
 #elif defined(__UNIX__)
 char PSN[30];
     int varEAX, varEBX, varECX, varEDX;
     char str[9];
+
     //%eax=1 gives most significant 32 bits in eax
     __asm__ __volatile__ ("cpuid"   : "=a" (varEAX), "=b" (varEBX), "=c" (varECX), "=d" (varEDX) : "a" (1));
     sprintf(str, "%08X", varEAX); //i.e. XXXX-XXXX-xxxx-xxxx-xxxx-xxxx
@@ -50,7 +52,7 @@ inline void Activation::native_cpuid(unsigned int *eax, unsigned int *ebx,
 
 wxString Activation::gethwinfo()
 {
-    return hwinfoOEM+"-"+hwinfoCores+"-"+hwinfoType[3];
+    return hwinfoOEM+"-"+hwinfoCores+"-"+hwinfoType;
 }
 Activation::~Activation()
 {
