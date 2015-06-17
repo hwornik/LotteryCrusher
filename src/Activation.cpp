@@ -17,10 +17,10 @@ SYSTEM_INFO siSysInfo;
 
    // Display the contents of the SYSTEM_INFO structure.
    wxString puffer;
-   hwinfoOEM=wxString::Format(wxT("%u"),siSysInfo.wProcessorLevel);
+   hwinfoCPUType=wxString::Format(wxT("%u"),siSysInfo.wProcessorLevel);
    hwinfoCores=wxString::Format(wxT("%u"),siSysInfo.dwNumberOfProcessors);
    puffer=wxString::Format(wxT("%1x"),siSysInfo.wProcessorRevision);
-   hwinfoType=puffer[3];
+   hwinfoStepping=puffer[3];
 #elif defined(__WXMAC__)
 
 #elif defined(__UNIX__)
@@ -32,8 +32,8 @@ SYSTEM_INFO siSysInfo;
     line=hwarray.Item(0);
     tokens.SetString(line,":");
     tokens.GetNextToken();
-    hwinfoOEM=tokens.GetNextToken();
-    hwinfoOEM=hwinfoOEM.Trim(false);
+    hwinfoCPUType=tokens.GetNextToken();
+    hwinfoCPUType=hwinfoCPUType.Trim(false);
     line=hwarray.Item(2);
     tokens.SetString(line,":");
     tokens.GetNextToken();
@@ -42,14 +42,14 @@ SYSTEM_INFO siSysInfo;
     line=hwarray.Item(1);
     tokens.SetString(line,":");
     tokens.GetNextToken();
-    hwinfoType=tokens.GetNextToken();
-    hwinfoType=hwinfoType.Trim(false);
+    hwinfoStepping=tokens.GetNextToken();
+    hwinfoStepping=hwinfoStepping.Trim(false);
 #endif
 }
 
 wxString Activation::gethwinfo()
 {
-    return hwinfoOEM+"-"+hwinfoCores+"-"+hwinfoType;
+    return hwinfoCPUType+"-"+hwinfoCores+"-"+hwinfoStepping;
 }
 Activation::~Activation()
 {

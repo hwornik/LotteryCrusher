@@ -26,8 +26,8 @@ class Activation
     protected:
     private:
         void ComputeHardewareInfos();
-        wxString hwinfoOEM;
-        wxString hwinfoType;
+        wxString hwinfoStepping;
+        wxString hwinfoCPUType;
         wxString hwinfoCores;
 };
 
