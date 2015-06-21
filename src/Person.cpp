@@ -52,7 +52,13 @@ bool Person::storeUser()
     return data->writeSettingsData(vname,nname,ordernr);
 }
 
-
+bool Person::isOK()
+{
+    if((vname.length()>0) && (nname.Length()>0) && (ordernr.length()>0))
+        return true;
+    else
+        return false;
+}
 Person::~Person()
 {
     //dtor

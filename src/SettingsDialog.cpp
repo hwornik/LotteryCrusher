@@ -7,6 +7,7 @@ SettingsDialog::SettingsDialog(wxWindow* parent,
             wxDefaultPosition, wxSize(400, 200))
 {
     settingscontrol = new Settings();
+    act = new Activation();
     wxString dirdat= settingscontrol->getVName();
     wxString dirdat2= settingscontrol->getNName();
     wxString dirdat3= settingscontrol->getOrderNr();
@@ -14,6 +15,7 @@ SettingsDialog::SettingsDialog(wxWindow* parent,
     vorname = new wxTextCtrl(panel,wxID_ANY,dirdat,wxDefaultPosition, wxSize(150,20));
     nachname = new wxTextCtrl(panel,wxID_ANY,dirdat2,wxDefaultPosition, wxSize(150,20));
     serialnumber = new wxTextCtrl(panel, wxID_ANY, dirdat3,wxDefaultPosition, wxSize(150,20));
+    this->setInactive(!act->isActivated());
     cancelButton = new wxButton(panel, wxID_ANY, "Cancel");
     okButton = new wxButton(panel, wxID_ANY, "Ok");
     sizer = new wxGridSizer(2, 5, 5);
@@ -59,6 +61,12 @@ void SettingsDialog::onOk(wxCommandEvent& pEvent)
     this->Destroy();
 }
 
+void SettingsDialog::setInactive(bool deactive)
+{
+    vorname->SetEditable(deactive);
+    nachname->SetEditable(deactive);
+    serialnumber->SetEditable(deactive);
+}
 SettingsDialog::~SettingsDialog()
 {
     //dtor

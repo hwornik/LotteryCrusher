@@ -5,6 +5,8 @@
 #include <wx/stdpaths.h>
 
 #include "Settings.h"
+#include "../LotteryCrusherMain.h"
+#include "Activation.h"
 
 class SettingsDialog: public wxDialog
 {
@@ -13,9 +15,11 @@ class SettingsDialog: public wxDialog
                 const wxString& title);
     void onCancel(wxCommandEvent& pEvent);
     void onOk(wxCommandEvent& pEvent);
+    void setInactive(bool deactive);
     virtual ~SettingsDialog();
     protected:
     private:
+        Activation *act;
         wxPanel* panel;
         wxTextCtrl *vorname, *nachname, *serialnumber;
         wxButton *cancelButton, *okButton;

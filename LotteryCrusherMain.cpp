@@ -92,6 +92,8 @@ LotteryCrusherFrame::LotteryCrusherFrame(wxFrame *frame, const wxString& title)
     //Lotterien ende
     if(!this->isactiveted())
         fileMenu->Append(idMenuAktivate, _("Activation"), _("Aktivate the program"));
+    else
+        fileMenu->Append(idMenuAktivate, _("Deactivation"), _("Deactivate the program"));
     fileMenu->Append(idMenuSettings, _("Settings"), _("Modify Settings"));
     fileMenu->Append(idMenuQuit, _("&Quit\tAlt-F4"), _("Quit the application"));
     mbar->Append(fileMenu, _("&File"));
@@ -171,10 +173,15 @@ void LotteryCrusherFrame::OnAbout(wxCommandEvent &event)
 
 void LotteryCrusherFrame::OnAktivateProgram(wxCommandEvent& event)
 {
-    if(!this->isactiveted())
+    Person *user=new Person();
+    user->loadUser();
+    if(user->isOK())
     {
-        this->dialogs= new ActivationDialog(this,wxID_ANY,"Activation");
-        this->dialogs->ShowModal();
+        if(!this->isactiveted())
+        {
+            this->dialogs= new ActivationDialog(this,wxID_ANY,"Activation");
+            this->dialogs->ShowModal();
+        }
     }
 }
 
@@ -262,6 +269,8 @@ void LotteryCrusherFrame::OnComputeWithN(wxCommandEvent& event)
 void LotteryCrusherFrame::OnWinNew(wxCommandEvent& event)
 {
     aktion=301;
+    this->dialogs= new TippeingabeDialog(this,wxID_ANY,"tipp input");
+    this->dialogs->ShowModal();
 }
 
 void LotteryCrusherFrame::OnWinCorr(wxCommandEvent& event)
@@ -300,25 +309,8 @@ void LotteryCrusherFrame::OnPaint(wxPaintEvent & evt)
 
 void LotteryCrusherFrame::activateStartup()
 {
-    DataIO *io= new DataIO();
-    Person *user=new Person();
-    user->loadUser();
-    unsigned char *zeigerchar,*no;
-    wxString program;
-    zeigerchar=io->readLicense();
-    SHA *decode= new SHA();
-    no = decode->get512Hash(program);
-    activated=true;
-    for(int i=0;i<255;i++)
-    {
-        if(*zeigerchar!=*no)
-        {
-            activated=false;
-            break;
-        }
-        zeigerchar++;
-        no++;
-    }
+    activation=new Activation();
+    activated=activation->test();
 }
 
 bool LotteryCrusherFrame::isactiveted()

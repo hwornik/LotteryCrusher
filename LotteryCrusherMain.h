@@ -19,11 +19,15 @@
 #include "include/Hauptfenster.h"
 #include "include/Welcome.h"
 #include "include/ActivationDialog.h"
+#include "include/Activation.h"
 #include "include/SettingsDialog.h"
 #include "include/DataIO.h"
 #include "include/SHA.h"
+#include "include/Activation.h"
+#include "include/TippeingabeDialog.h"
 
 #include <wx/dcbuffer.h>
+
 
 class LotteryCrusherFrame: public wxFrame
 {
@@ -35,8 +39,10 @@ class LotteryCrusherFrame: public wxFrame
         Hauptfenster* fenster;
         Lotto* lotto;
         wxDialog* dialogs;
+        Activation *activation;
         int aktion;
-        bool firstpaint,activated;
+        bool firstpaint;
+        bool activated;
         wxString *vname,*nname,*serialn,*code,*key,*mac1,*mac2,*mac3,*home;
         void activateStartup();
         enum

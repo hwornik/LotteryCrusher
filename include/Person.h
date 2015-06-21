@@ -17,6 +17,7 @@ class Person
         void setOrderNr(wxString ordernr);
         bool loadUser();
         bool storeUser();
+        bool isOK();
     protected:
     private:
         wxString vname;

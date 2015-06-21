@@ -49,8 +49,39 @@ SYSTEM_INFO siSysInfo;
 
 wxString Activation::gethwinfo()
 {
-    return hwinfoCPUType+"-"+hwinfoCores+"-"+hwinfoStepping;
+    return hwinfoCPUType+hwinfoCores+hwinfoStepping;
 }
+
+bool Activation::test()
+{
+    DataIO *io= new DataIO();
+    Person *user=new Person();
+    SHA *decode= new SHA();
+    unsigned char *zeigerchar,*no;
+    wxString program;
+    user->loadUser();
+    zeigerchar=io->readLicense();
+    no = decode->get512Hash(this->gethwinfo()+user->getVName()+user->getNName()+user->getOrderNr());
+    programactivated=false;
+    for(int i=0;i<255;i++)
+    {
+        programactivated=true;
+        if(*zeigerchar!=*no)
+        {
+            programactivated=false;
+            return false;
+        }
+        zeigerchar++;
+        no++;
+    }
+    return programactivated;
+}
+
+bool Activation::isActivated()
+{
+    return programactivated;
+}
+
 Activation::~Activation()
 {
     //dtor

@@ -3,6 +3,9 @@
 
 #include <wx/string.h>
 #include <stdio.h>
+#include "DataIO.h"
+#include "Person.h"
+#include "SHA.h"
 
 #if defined(__WXMSW__)
         #include <Windows.h>
@@ -17,12 +20,18 @@
 
 using namespace std;
 
+static bool programactivated;
+
 class Activation
 {
     public:
+
         Activation();
         wxString gethwinfo();
+        bool test();
+        bool isActivated();
         ~Activation();
+
     protected:
     private:
         void ComputeHardewareInfos();
